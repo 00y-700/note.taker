@@ -21,17 +21,14 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "./public/notes.html"))
 });
 
-app.get("*", function(req, res) {
-    res.sendFile(path.join(__dirname, "./public/index.html"))
-});
 
 //api routes
 
     app.get("/api/notes", function(req, res) {
-        // let notes = fs.readFileSync("./db/db.json");
-        // let list = JSON.parse(notes);
-        // console.log("hello?")
-        res.json(db);
+        let notes = fs.readFileSync("./db/db.json");
+        let list = JSON.parse(notes);
+        console.log("hello?")
+        res.json(list);
     });
     
     app.post("/api/notes", function(req, res) {
@@ -54,7 +51,10 @@ app.get("*", function(req, res) {
         res.json(db)
     })
     
-
+    
+    app.get("*", function(req, res) {
+        res.sendFile(path.join(__dirname, "./public/index.html"))
+    });
 
 
 app.listen(PORT, () => {
