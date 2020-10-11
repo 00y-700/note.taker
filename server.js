@@ -61,6 +61,7 @@ app.get("/notes", function(req, res) {
                 throw (err)
                 res.json(noteFilter)
             })
+        
         })
     
     
