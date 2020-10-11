@@ -27,7 +27,6 @@ app.get("/notes", function(req, res) {
     app.get("/api/notes", function(req, res) {
         let notes = fs.readFileSync("./db/db.json");
         let list = JSON.parse(notes);
-        console.log("hello?")
         res.json(list);
     });
     
@@ -48,8 +47,22 @@ app.get("/notes", function(req, res) {
     
     
     app.delete("/api/notes/:id", function(req, res) {
-        res.json(db)
-    })
+        let id = req.params.id;
+        // console.log(id);
+        let notes = fs.readFileSync("./db/db.json");
+        let noteList = JSON.parse(notes)
+        // console.log(noteList);
+        let noteFilter = noteList.filter((noteList) => noteList.id !=id);
+        // console.log(noteFilter);
+        
+            
+            fs.writeFileSync("./db/db.json", JSON.stringify(noteFilter), (err) => {
+                if (err)
+                throw (err)
+                res.json(noteFilter)
+            })
+        })
+    
     
     
     app.get("*", function(req, res) {
